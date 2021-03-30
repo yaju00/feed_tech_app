@@ -1,0 +1,6 @@
+.mainForm{
+    margin-top: 150px;
+    width: 50%;
+    margin-left: 50%;
+    transform: translate(-50%,0);
+}

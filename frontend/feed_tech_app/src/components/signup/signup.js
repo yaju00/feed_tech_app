@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import TextField from "@material-ui/core/TextField";
 import styles from "./signup.module.css";
+import axios from "axios";
+import Modal from "../dashboard/modal/modal";
 
 class Signup extends Component {
   constructor(props) {
@@ -14,21 +16,66 @@ class Signup extends Component {
         "business",
         "economics",
       ],
+      firstname: "",
+      lastname: "",
+      email: "",
+      password: "",
+      cpassword: "",
+      phone: "",
+      modalState: false,
     };
   }
-  dateChanger = (date) => {
-    this.setState({ date: date });
+
+  onChangefisrtname = (e) => {
+    this.setState({ firstname: e.target.value });
   };
+  onChangelasttname = (e) => {
+    this.setState({ lastname: e.target.value });
+  };
+  onChangepassword = (e) => {
+    this.setState({ password: e.target.value });
+  };
+  onChangecpassword = (e) => {
+    this.setState({ cpassword: e.target.value });
+  };
+  onChangeemail = (e) => {
+    this.setState({ email: e.target.value });
+  };
+  onChangephone = (e) => {
+    this.setState({ phone: e.target.value });
+  };
+
+  onSubmit = (e) => {
+    e.preventDefault();
+    const user = {
+      fname: this.state.firstname,
+      lname: this.state.lastname,
+      email: this.state.email,
+      password: this.state.password,
+      cpassword: this.state.cpassword,
+      phone: this.state.phone,
+    };
+    axios
+      .post(`http://localhost:5000/signup`, user)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+
+    this.setState({ modalState: true });
+
+    console.log(user);
+  };
+
   render() {
     return (
       <div>
         <div className="container text-center">
           <h2>New User Registration</h2>
         </div>
-        <form className={styles.mainForm}>
+        <form onSubmit={this.onSubmit} className={styles.mainForm}>
           <div className="form-group">
             <label>First Name</label>
             <input
+              onChange={this.onChangefisrtname}
               type="text"
               name="firstname"
               className="form-control"
@@ -38,6 +85,7 @@ class Signup extends Component {
           <div className="form-group">
             <label>Last Name</label>
             <input
+              onChange={this.onChangelasttname}
               type="text"
               name="lastname"
               className="form-control"
@@ -47,6 +95,7 @@ class Signup extends Component {
           <div className="form-group">
             <label>Email address</label>
             <input
+              onChange={this.onChangeemail}
               name="email"
               className="form-control"
               id="exampleInputEmail1"
@@ -57,6 +106,7 @@ class Signup extends Component {
           <div className="form-group">
             <label>Password</label>
             <input
+              onChange={this.onChangepassword}
               name="password"
               className="form-control"
               id="exampleInputPassword1"
@@ -66,6 +116,7 @@ class Signup extends Component {
           <div className="form-group">
             <label>Confirm Password</label>
             <input
+              onChange={this.onChangecpassword}
               name="cpassword"
               className="form-control"
               id="exampleInputPassword1"
@@ -75,7 +126,8 @@ class Signup extends Component {
           <div className="form-group">
             <label>Phone Number</label>
             <input
-              name="firstname"
+              onChange={this.onChangephone}
+              name="phone"
               className="form-control"
               placeholder="Enter Phone Number"
             />
@@ -112,14 +164,15 @@ class Signup extends Component {
               })}
             </select>
           </div>
+          <button
+            id={styles["submitBtn"]}
+            type="submit"
+            className="btn btn-primary mx-auto,"
+          >
+            Submit
+          </button>
         </form>
-        <button
-          id={styles["submitBtn"]}
-          type="submit"
-          className="btn btn-primary mx-auto,"
-        >
-          Submit
-        </button>
+        <Modal viewState={this.state.modalState} />
       </div>
     );
   }

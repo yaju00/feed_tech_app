@@ -1,19 +1,21 @@
-import React,{Component} from 'react';
-import Navbar from './navbar/navbar';
-class Dashboard extends Component{
-    constructor(props){
-        super(props)
-        this.state={
+import React, { Component } from "react";
+import Navbar from "./navbar/navbar";
+import axios from "axios";
 
-        }
-    }
-    render(){
-        return(
-            <div>
-               <Navbar />
-            </div>
-        )
-    }
+class Dashboard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+  componentDidMount() {}
+
+  render() {
+    return (
+      <div>
+        <Navbar />
+      </div>
+    );
+  }
 }
 
-export default Dashboard
+export default Dashboard;

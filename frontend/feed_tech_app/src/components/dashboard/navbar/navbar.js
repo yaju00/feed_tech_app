@@ -6,6 +6,7 @@ import * as MdIcons from "react-icons/md";
 import * as GiIcons from "react-icons/gi";
 import * as AiIcons from "react-icons/ai";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 class Navbar extends Component {
   constructor(props) {
@@ -17,6 +18,10 @@ class Navbar extends Component {
   sideBarToggler = () => {
     const inter = this.state.sideBarStatus;
     this.setState({ sideBarStatus: !inter });
+  };
+
+  logoutHandler = () => {
+    axios.post();
   };
   render() {
     return (
@@ -47,19 +52,25 @@ class Navbar extends Component {
               <p>Close</p>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/settings">
+              <Link className="nav-link" to="/dashboard">
+                <FaIcons.FaHome className={styles.icons} />
+                <p>Home</p>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/dashboard/settings">
                 <VscIcons.VscSettingsGear className={styles.icons} />
                 <p>Settings</p>
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/create">
+              <Link className="nav-link" to="/dashboard/create">
                 <MdIcons.MdCreate className={styles.icons} />
                 <p>Create</p>
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/list">
+              <Link className="nav-link" to="/dashboard/list">
                 <FaIcons.FaList className={styles.icons} />
                 <p> Your List</p>
               </Link>

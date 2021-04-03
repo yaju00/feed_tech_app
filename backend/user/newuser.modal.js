@@ -21,13 +21,13 @@ const newUserSchema = new mongoose.Schema(
       type: String,
     },
     dob: {
-      type: String,
+      type: Date,
     },
     phone: {
       type: String,
     },
-    preferences: {
-      type: String,
+    preference: {
+      type: Array,
     },
   },
   { timestamps: true }

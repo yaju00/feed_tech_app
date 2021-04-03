@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styles from "./logout.module.css";
+import axios from "axios";
 
 class Logout extends Component {
   constructor(props) {

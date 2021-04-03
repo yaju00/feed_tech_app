@@ -5,13 +5,124 @@ import Navbar from "../navbar/navbar";
 class Create extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      categories: [
+        "politics",
+        "sports",
+        "entertainment",
+        "business",
+        "economics",
+      ],
+      title: "",
+      description: "",
+      category: "",
+      image: "",
+      body: "",
+    };
   }
+  onChangeTitle = (e) => {
+    this.setState({ title: e.target.value });
+  };
+  onChangeDescription = (e) => {
+    this.setState({ description: e.target.value });
+  };
+  onChangeCategory = (e) => {
+    this.setState({ categories: e.target.value });
+  };
+  onChangeImage = (e) => {
+    this.setState({ image: e.target.value });
+  };
+  onChangeBody = (e) => {
+    this.setState({ body: e.target.value });
+  };
+  onSubmit = (e) => {
+    const newArticle = {
+      title: this.state.title,
+      description: this.state.description,
+      category: this.state.categories,
+      image: this.state.image,
+      body: this.state.body,
+    };
+
+    console.log(newArticle);
+  };
   render() {
     return (
       <div>
         <Navbar />
-        <div></div>
+        <div className="container" id={styles["mainDiv"]}>
+          <div>
+            <h2 className="text-center">Create New Article</h2>
+          </div>
+          <form
+            method="post"
+            onSubmit={this.onSubmit}
+            className={styles.mainForm}
+          >
+            <div className="form-group">
+              <label>Title</label>
+              <input
+                onChange={this.onChangeTitle}
+                type="text"
+                name="title"
+                className="form-control"
+                placeholder="Enter Title"
+              />
+            </div>
+            <div className="form-group">
+              <label>Category</label>
+              <br />
+              <select
+                name="catogory"
+                onChange={this.onChangeCategory}
+                className="form-select"
+                aria-label="Default select example"
+              >
+                <option selected>choose</option>;
+                {this.state.categories.map((el, index) => {
+                  return <option value={el}>{el}</option>;
+                })}
+              </select>
+            </div>
+            <div className="form-group">
+              <label>Description</label>
+              <textarea
+                onChange={this.onChangeDescription}
+                name="description"
+                className="form-control"
+                id="exampleInputEmail1"
+                placeholder="Enter Article Description"
+              />
+            </div>
+            <div className="form-group">
+              <label>Supporting Image</label>
+              <input
+                onChange={this.onChangeImage}
+                name="image"
+                type="file"
+                className="form-control"
+                placeholder="Upload Image"
+              />
+            </div>
+            <div className="form-group">
+              <label>Article Body</label>
+              <textarea
+                style={{ height: "100px" }}
+                onChange={this.onChangeBody}
+                name="body"
+                className="form-control"
+                placeholder=" Artcile Body"
+              />
+            </div>
+            <button
+              id={styles["submitBtn"]}
+              type="submit"
+              className="btn btn-primary mx-auto,"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
       </div>
     );
   }

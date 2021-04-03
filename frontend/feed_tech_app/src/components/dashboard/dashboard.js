@@ -7,12 +7,15 @@ class Dashboard extends Component {
     super(props);
     this.state = {};
   }
-  componentDidMount() {}
+  //   componentDidMount() {
+  //       axios.get(`http://localhost:5000/login`)
+  //   }
 
   render() {
     return (
       <div>
         <Navbar />
+        This is dashboard This is dashboard This is dashboard This is dashboard
       </div>
     );
   }

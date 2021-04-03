@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import TextField from "@material-ui/core/TextField";
 import styles from "./signup.module.css";
 import axios from "axios";
 import Modal from "../dashboard/modal/modal";
@@ -22,7 +21,10 @@ class Signup extends Component {
       password: "",
       cpassword: "",
       phone: "",
+      date: "",
+      pref: "",
       modalState: false,
+      modalErrState: false,
     };
   }
 
@@ -44,6 +46,13 @@ class Signup extends Component {
   onChangephone = (e) => {
     this.setState({ phone: e.target.value });
   };
+  onChangedate = (e) => {
+    this.setState({ date: e.target.value });
+  };
+  onChangePreference = (e) => {
+    let value = Array.from(e.target.selectedOptions, (option) => option.value);
+    this.setState({ pref: value });
+  };
 
   onSubmit = (e) => {
     e.preventDefault();
@@ -54,15 +63,28 @@ class Signup extends Component {
       password: this.state.password,
       cpassword: this.state.cpassword,
       phone: this.state.phone,
+      date: this.state.date,
+      preference: this.state.pref,
     };
     axios
       .post(`http://localhost:5000/signup`, user)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-
-    this.setState({ modalState: true });
-
+      .then((res) => {
+        console.log(res);
+        if (res.status === 201) {
+          this.setState({ modalState: true });
+        } else {
+          this.setState({ modalErrState: true });
+        }
+      })
+      .catch((err) => {
+        return err;
+      });
     console.log(user);
+  };
+
+  errorModalCloser = () => {
+    this.setState({ modalErrState: false });
+    console.log("clicked");
   };
 
   render() {
@@ -134,16 +156,12 @@ class Signup extends Component {
           </div>
           <div className="form-group">
             <label>Date of Birth</label>
-            <br />
-            <TextField
-              id="date"
+            <input
+              onChange={this.onChangedate}
+              name="date"
               type="date"
-              name="dob"
-              defaultValue="01-01-2000"
-              onChange={(x, y) => console.log(x, y)}
-              InputLabelProps={{
-                shrink: true,
-              }}
+              className="form-control"
+              placeholder="Enter Date of Birth"
             />
           </div>
 
@@ -155,12 +173,14 @@ class Signup extends Component {
               multiple options.
             </p>
             <select
+              name="preference"
+              onChange={this.onChangePreference}
               className="form-select"
               aria-label="Default select example"
               multiple
             >
               {this.state.selectOptions.map((el, index) => {
-                return <option>{el}</option>;
+                return <option value={el}>{el}</option>;
               })}
             </select>
           </div>
@@ -172,7 +192,12 @@ class Signup extends Component {
             Submit
           </button>
         </form>
-        <Modal viewState={this.state.modalState} />
+        <Modal
+          viewState={this.state.modalState}
+          viewErrState={this.state.modalErrState}
+          errorModalCloser={this.errorModalCloser}
+        />
+        {console.log(this.state.modalErrState)}
       </div>
     );
   }

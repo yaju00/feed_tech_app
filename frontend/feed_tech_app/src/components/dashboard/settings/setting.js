@@ -50,7 +50,14 @@ class Settings extends Component {
     console.log(newData);
     axios
       .patch(`http://localhost:5000/dashboard/settings`, newData)
-      .then((res) => console.log(res))
+      .then((res) => {
+        this.setState({ email: "" });
+        this.setState({ password: "" });
+        this.setState({ cpassword: "" });
+        this.setState({ phone: "" });
+        this.setState({ preference: [] });
+        console.log(res);
+      })
       .catch((err) => err);
   };
 
@@ -58,7 +65,7 @@ class Settings extends Component {
     return (
       <div>
         <Navbar />
-        <div id={styles["mainDiv"]} className="container">
+        <div id={styles["mainDiv"]} className="container mt-5 pt-5">
           <div>
             <h2 className="text-center">Edit Your Info</h2>
           </div>
@@ -72,6 +79,7 @@ class Settings extends Component {
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
                 placeholder="Enter Email"
+                value={this.state.email}
               />
             </div>
             <div className="form-group">
@@ -82,6 +90,7 @@ class Settings extends Component {
                 className="form-control"
                 id="exampleInputPassword1"
                 placeholder="Enter New Password"
+                value={this.state.password}
               />
             </div>
             <div className="form-group">
@@ -92,6 +101,7 @@ class Settings extends Component {
                 className="form-control"
                 id="exampleInputPassword1"
                 placeholder=" Confirm New Password"
+                value={this.state.cpassword}
               />
             </div>
             <div className="form-group">
@@ -101,6 +111,7 @@ class Settings extends Component {
                 name="phone"
                 className="form-control"
                 placeholder="Enter New Phone Number"
+                value={this.state.phone}
               />
             </div>
             <div className="form-group">
@@ -115,6 +126,7 @@ class Settings extends Component {
                 onChange={this.ChangePrefrence}
                 className="form-select"
                 multiple
+                value={this.state.preference}
               >
                 {this.state.selectOptions.map((el, index) => {
                   return <option value={el}>{el}</option>;

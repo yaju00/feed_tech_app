@@ -15,7 +15,10 @@ class Dashboard extends Component {
     return (
       <div>
         <Navbar />
-        This is dashboard This is dashboard This is dashboard This is dashboard
+        <div className="container mt-5 pt-5">
+          This is dashboard This is dashboard This is dashboard This is
+          dashboard
+        </div>
       </div>
     );
   }

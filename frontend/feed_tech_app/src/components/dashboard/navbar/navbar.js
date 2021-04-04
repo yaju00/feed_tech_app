@@ -26,7 +26,10 @@ class Navbar extends Component {
   render() {
     return (
       <div className={styles.mainDiv}>
-        <div className="navbar navbar-dark bg-dark">
+        <div
+          id={styles["nav"]}
+          className="navbar fixed-top navbar-dark bg-dark"
+        >
           <button
             onClick={this.sideBarToggler}
             className="navbar-toggler"
@@ -83,7 +86,6 @@ class Navbar extends Component {
             </li>
           </ul>
         </div>
-        {console.log(this.state.sideBarStatus)}
       </div>
     );
   }

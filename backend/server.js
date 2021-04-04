@@ -23,6 +23,8 @@ mongoose
 
 const UserRouter = require("./user/user.route");
 app.use("/", UserRouter);
+const FeedRouter = require("./feed/newfeed.route");
+app.use("/", FeedRouter);
 
 app.listen(port, () => {
   console.log(`this application is running on ${port} port`);

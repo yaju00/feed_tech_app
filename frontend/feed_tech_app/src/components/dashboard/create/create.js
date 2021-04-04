@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import styles from "./create.module.css";
 import Navbar from "../navbar/navbar";
+import axios from "axios";
 
 class Create extends Component {
   constructor(props) {
@@ -27,7 +28,8 @@ class Create extends Component {
     this.setState({ description: e.target.value });
   };
   onChangeCategory = (e) => {
-    this.setState({ categories: e.target.value });
+    let value = Array.from(e.target.selectedOptions, (option) => option.value);
+    this.setState({ categories: value });
   };
   onChangeImage = (e) => {
     this.setState({ image: e.target.value });
@@ -36,6 +38,7 @@ class Create extends Component {
     this.setState({ body: e.target.value });
   };
   onSubmit = (e) => {
+    e.preventDefault();
     const newArticle = {
       title: this.state.title,
       description: this.state.description,
@@ -44,13 +47,25 @@ class Create extends Component {
       body: this.state.body,
     };
 
+    axios
+      .post(`http://localhost:5000/dashboard/create`, newArticle)
+      .then((res) => {
+        this.setState({ title: "" });
+        this.setState({ description: "" });
+        this.setState({ category: "" });
+        this.setState({ image: "" });
+        this.setState({ body: "" });
+        console.log(res);
+      })
+      .catch((err) => err);
+
     console.log(newArticle);
   };
   render() {
     return (
       <div>
         <Navbar />
-        <div className="container" id={styles["mainDiv"]}>
+        <div className="container mt-5 pt-5" id={styles["mainDiv"]}>
           <div>
             <h2 className="text-center">Create New Article</h2>
           </div>
@@ -67,6 +82,7 @@ class Create extends Component {
                 name="title"
                 className="form-control"
                 placeholder="Enter Title"
+                value={this.state.title}
               />
             </div>
             <div className="form-group">
@@ -77,6 +93,7 @@ class Create extends Component {
                 onChange={this.onChangeCategory}
                 className="form-select"
                 aria-label="Default select example"
+                value={this.state.categories}
               >
                 <option selected>choose</option>;
                 {this.state.categories.map((el, index) => {
@@ -92,6 +109,7 @@ class Create extends Component {
                 className="form-control"
                 id="exampleInputEmail1"
                 placeholder="Enter Article Description"
+                value={this.state.description}
               />
             </div>
             <div className="form-group">
@@ -112,6 +130,7 @@ class Create extends Component {
                 name="body"
                 className="form-control"
                 placeholder=" Artcile Body"
+                value={this.state.body}
               />
             </div>
             <button

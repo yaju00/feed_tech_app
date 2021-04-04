@@ -37,18 +37,16 @@ class List extends Component {
     return (
       <div>
         <Navbar />
-        <div className="container mt-5 pt-5 mb-5 pb-5">
+        <div className="container text-center mt-5 pt-5 mb-5 pb-5">
           <div className="row">
             {this.state.responseData.map((el, index) => {
               return (
-                <div key={el._id} id={styles["column"]} className="col-sm-3">
-                  <div>
-                    <h6>Title</h6>
-                    {el.title}
+                <div key={el._id} id={styles["column"]} className="col-sm-4">
+                  <div style={{ marginBottom: "20px" }}>
+                    <h4 style={{ fontFamily: "georgia" }}>{el.title}</h4>
                   </div>
                   <div>
-                    <h6>Description</h6>
-                    {el.description}
+                    <p>{el.description}</p>
                   </div>
                   <button
                     id={styles["btn"]}

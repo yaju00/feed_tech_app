@@ -35,25 +35,25 @@ class List extends Component {
   };
   render() {
     return (
-      <div>
+      <div style={{ backgroundColor: "yellow" }}>
         <Navbar />
         <div className="container mt-5 pt-5 mb-5 pb-5">
-          <div className="row">
+          <div style={{ backgroundColor: "white" }} className="row">
             {this.state.responseData.map((el, index) => {
               return (
-                <div key={el._id} id={styles["column"]} className="col-sm-3">
-                  <div>
-                    <h6>Title</h6>
+                <div key={el._id} id={styles["column"]} className="col-sm-6">
+                  <div style={{ marginBottom: "10px" }}>
+                    <h4 style={{ fontFamily: "georgia" }}>Title</h4>
                     {el.title}
                   </div>
                   <div>
-                    <h6>Description</h6>
+                    <h5>Description</h5>
                     {el.description}
                   </div>
                   <button
                     id={styles["btn"]}
                     type="button"
-                    className="btn btn-primary"
+                    className="btn btn-dark"
                     onClick={() => this.modalHandler(el)}
                   >
                     Read More...

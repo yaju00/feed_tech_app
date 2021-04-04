@@ -53,11 +53,13 @@ class Login extends Component {
       })
       .then((res) => {
         if (this.state.isAuthenticated) {
-          this.props.history.push({
-            pathname: `/dashboard`,
-          });
+          window.location = "/dashboard";
         }
         console.log(this.state.isAuthenticated);
+      })
+      .then((res) => {
+        this.setState({ loginid: "" });
+        this.setState({ password: "" });
       })
       .catch((err) => err);
 
@@ -80,6 +82,7 @@ class Login extends Component {
               name="loginid"
               className="form-control"
               placeholder="Enter Email Id/Phone Number"
+              value={this.state.loginid}
             />
           </div>
           <div className="form-group">
@@ -89,6 +92,7 @@ class Login extends Component {
               name="password"
               className="form-control"
               placeholder="Enter Password"
+              value={this.state.password}
             />
           </div>
           <button

@@ -5,7 +5,7 @@ import Signup from "./components/signup/signup";
 import Login from "./components/login/login";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Dashboard from "./components/dashboard/dashboard";
-import Settings from "./components/dashboard/settings/setting";
+import Settings from "./components/dashboard/settings/settings";
 import Create from "./components/dashboard/create/create";
 import Edit from "./components/dashboard/edit/edit";
 import List from "./components/dashboard/list/list";

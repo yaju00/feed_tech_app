@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import styles from "./setting.module.css";
+import styles from "./settings.module.css";
 import Navbar from "../navbar/navbar";
 import axios from "axios";
 

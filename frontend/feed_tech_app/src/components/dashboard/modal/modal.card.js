@@ -20,7 +20,7 @@ class ModalCard extends Component {
         <div style={{ display: this.props.viewState ? "block" : "none" }}>
           <div className={styles.modalCard}>
             <h2>{this.state.titleSignup[0]}</h2>
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" className="btn btn-primary">
               <Link
                 style={{ color: "white", textDecoration: "none" }}
                 to="/login"
@@ -36,7 +36,7 @@ class ModalCard extends Component {
             <button
               onClick={this.props.errorModalCloser}
               type="submit"
-              class="btn btn-primary"
+              className="btn btn-primary"
             >
               {this.state.buttonTagSignUp[1]}
             </button>
@@ -48,7 +48,7 @@ class ModalCard extends Component {
             <button
               onClick={this.props.errorLoginCloser}
               type="submit"
-              class="btn btn-primary"
+              className="btn btn-primary"
             >
               {this.state.buttonTagSignUp[2]}
             </button>

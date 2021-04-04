@@ -21,7 +21,6 @@ class Signup extends Component {
       password: "",
       cpassword: "",
       phone: "",
-      date: "",
       pref: "",
       modalState: false,
       modalErrState: false,
@@ -180,7 +179,11 @@ class Signup extends Component {
               multiple
             >
               {this.state.selectOptions.map((el, index) => {
-                return <option value={el}>{el}</option>;
+                return (
+                  <option key={el + "1"} value={el}>
+                    {el}
+                  </option>
+                );
               })}
             </select>
           </div>

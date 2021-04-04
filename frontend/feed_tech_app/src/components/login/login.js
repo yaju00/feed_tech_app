@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import styles from "./login.module.css";
 import Modal from "../dashboard/modal/modal";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
-import Navbar from "../dashboard/navbar/navbar";
 
 class Login extends Component {
   constructor(props) {
@@ -15,7 +13,6 @@ class Login extends Component {
       loginid: "",
       password: "",
       isAuthenticated: false,
-      userDocId: "",
     };
   }
   onChangeLoginId = (e) => {
@@ -41,7 +38,6 @@ class Login extends Component {
         console.log(res);
         if (res.status === 201) {
           userIdDb = res.data;
-          this.setState({ userDocId: res.data });
           return axios.get(`http://localhost:5000/login`);
         } else {
           this.setState({ loginErrState: true });
@@ -49,7 +45,7 @@ class Login extends Component {
       })
       .then((res) => {
         res.data.map((el, index) => {
-          sessionIds.push(el.userid);
+          return sessionIds.push(el.userid);
         });
         if (sessionIds.includes(userIdDb)) {
           this.setState({ isAuthenticated: true });
@@ -66,19 +62,10 @@ class Login extends Component {
       .catch((err) => err);
 
     console.log(user);
-    // this.setState({ loginErrState: true });
   };
   loginHandler = () => {
     this.setState({ loginState: true });
   };
-
-  //   routingFunction = (param) => {
-  //     if (1 === 2) {
-  //       this.props.history.push({
-  //         pathname: `/dashboard`,
-  //       });
-  //     }
-  //   };
   render() {
     return (
       <div>

@@ -1,0 +1,12 @@
+#column {
+  padding: 20px;
+
+  border: 1px solid rgb(216, 204, 204);
+}
+
+#btn {
+  position: relative;
+  margin-top: 10%;
+  margin-left: 50%;
+  transform: translate(-50%, 0);
+}

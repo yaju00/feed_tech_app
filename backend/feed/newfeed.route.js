@@ -33,4 +33,24 @@ router.route("/dashboard/list").get(async (req, res) => {
   res.send(list);
 });
 
+router.route("/dashboard/update/:id").patch(async (req, res) => {
+  const id = req.params.id;
+  const updateObject = req.body;
+
+  await Feed.findByIdAndUpdate(id, updateObject).catch((err) =>
+    console.log(err)
+  );
+  console.log(req.body, id);
+
+  res.send(`patch request for article is recieved`);
+});
+
+router.route("/dashboard/:id").get(async (req, res) => {
+  let id = req.params.id;
+  const feed = await Feed.findById({ _id: id }).catch((err) =>
+    console.log(err)
+  );
+  res.send(feed);
+});
+
 module.exports = router;

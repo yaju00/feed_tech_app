@@ -4,7 +4,7 @@ const newFeedSchema = new mongoose.Schema(
   {
     title: {
       type: String,
-      trim: true,
+      unique: true,
     },
     category: {
       type: Array,

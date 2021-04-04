@@ -2,45 +2,33 @@ import React, { Component } from "react";
 import styles from "./list.module.css";
 import Navbar from "../navbar/navbar";
 import axios from "axios";
+import ArticleModal from "./articleModal";
 
 class List extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: [],
-      description: [],
-      category: [],
-      body: [],
+      responseData: [],
       readMoreModal: false,
-      currentIndex: "",
+      responseDataToModal: [],
     };
   }
 
   componentDidMount() {
-    let titleArray = [];
-    let descriptionArray = [];
-    let categoryArray = [];
-    let bodyArray = [];
+    let responseArray = [];
     axios
       .get(`http://localhost:5000/dashboard/list`)
       .then((res) => {
-        console.log(res);
         res.data.map((el, index) => {
-          titleArray.push(el.title);
-          descriptionArray.push(el.description);
-          categoryArray.push(el.category);
-          bodyArray.push(el.body);
+          responseArray.push(el);
         });
-        this.setState({ title: titleArray });
-        this.setState({ description: descriptionArray });
-        this.setState({ category: categoryArray });
-        this.setState({ body: bodyArray });
+        this.setState({ responseData: responseArray });
       })
       .catch((err) => err);
   }
-  modalHandler = (index) => {
+  modalHandler = (el) => {
     this.setState({ readMoreModal: true });
-    this.setState({ currentIndex: index });
+    this.setState({ responseDataToModal: el });
   };
   modalCloser = () => {
     this.setState({ readMoreModal: false });
@@ -49,67 +37,37 @@ class List extends Component {
     return (
       <div>
         <Navbar />
-        <div className="container mt-5 pt-5">
+        <div className="container mt-5 pt-5 mb-5 pb-5">
           <div className="row">
-            {this.state.title.map((el, index) => {
+            {this.state.responseData.map((el, index) => {
               return (
-                <div id={styles["column"]} className="col-sm-3">
+                <div key={el._id} id={styles["column"]} className="col-sm-3">
                   <div>
                     <h6>Title</h6>
-                    {el}
+                    {el.title}
                   </div>
                   <div>
                     <h6>Description</h6>
-                    {this.state.description[index]}
+                    {el.description}
                   </div>
                   <button
                     id={styles["btn"]}
                     type="button"
                     className="btn btn-primary"
-                    onClick={() => this.modalHandler(index)}
+                    onClick={() => this.modalHandler(el)}
                   >
                     Read More...
                   </button>
-                  <div
-                    style={{
-                      visibility: this.state.readMoreModal
-                        ? "visible"
-                        : "hidden",
-                    }}
-                    className={styles.modal}
-                  >
-                    <div className={styles.modalCard}>
-                      <h2>Title</h2>
-                      <div style={{ marginBottom: "15px" }}>
-                        {this.state.title[this.state.currentIndex]}
-                      </div>
-                      <h2>Description</h2>
-                      <div style={{ marginBottom: "15px" }}>
-                        {this.state.description[this.state.currentIndex]}
-                      </div>
-                      <h2>Category</h2>
-                      <div style={{ marginBottom: "15px" }}>
-                        {this.state.category[this.state.currentIndex]}
-                      </div>
-                      <h2>Body</h2>
-                      <div style={{ marginBottom: "15px" }}>
-                        {this.state.body[this.state.currentIndex]}
-                      </div>
-                      <button
-                        onClick={this.modalCloser}
-                        type="submit"
-                        class="btn btn-primary"
-                        id={styles["btn2"]}
-                      >
-                        Close
-                      </button>
-                    </div>
-                  </div>
                 </div>
               );
             })}
           </div>
         </div>
+        <ArticleModal
+          readMoreModal={this.state.readMoreModal}
+          responseDataToModal={this.state.responseDataToModal}
+          modalCloser={this.modalCloser}
+        />
       </div>
     );
   }

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import styles from "./logout.module.css";
-import axios from "axios";
+import { Link } from "react-router-dom";
 
 class Logout extends Component {
   constructor(props) {
@@ -8,7 +8,18 @@ class Logout extends Component {
     this.state = {};
   }
   render() {
-    return <div>You have logged out successfully</div>;
+    return (
+      <div>
+        <div className="container text-center mt-5 pt-5">
+          You have logged out successfully
+        </div>
+        <button type="button" className="btn btn-primary" id={styles["btn"]}>
+          <Link to="/login" style={{ textDecoration: "none", color: "white" }}>
+            Login
+          </Link>
+        </button>
+      </div>
+    );
   }
 }
 

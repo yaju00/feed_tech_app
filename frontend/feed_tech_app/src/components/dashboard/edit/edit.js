@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import styles from "./create.module.css";
+import styles from "./edit.module.css";
 import Navbar from "../navbar/navbar";
 import axios from "axios";
 
@@ -21,9 +21,29 @@ class Create extends Component {
       body: "",
     };
   }
+  componentDidMount = () => {
+    axios
+      .get(`http://localhost:5000/dashboard/` + this.props.match.params.id)
+      .then((res) => {
+        console.log(res);
+        this.setState({
+          title: res.data.title,
+          description: res.data.description,
+          category: res.data.category,
+          image: res.data.image,
+          body: res.data.body,
+        });
+      })
+      .catch((err) => {
+        throw console.log(err);
+      });
+    console.log(this.props.match.params.id);
+  };
+
   onChangeTitle = (e) => {
     this.setState({ title: e.target.value });
   };
+
   onChangeDescription = (e) => {
     this.setState({ description: e.target.value });
   };
@@ -48,7 +68,10 @@ class Create extends Component {
     };
 
     axios
-      .post(`http://localhost:5000/dashboard/create`, newArticle)
+      .patch(
+        `http://localhost:5000/dashboard/update/` + this.props.match.params.id,
+        newArticle
+      )
       .then((res) => {
         this.setState({ title: "" });
         this.setState({ description: "" });
@@ -65,9 +88,9 @@ class Create extends Component {
     return (
       <div>
         <Navbar />
-        <div className="container mt-5 pt-5" id={styles["mainDiv"]}>
+        <div className="container mt-5 pt-5 mb-5 pb-5" id={styles["mainDiv"]}>
           <div>
-            <h2 className="text-center">Create New Article</h2>
+            <h2 className="text-center">Edit Your Article(s)</h2>
           </div>
           <form
             method="post"
@@ -80,6 +103,7 @@ class Create extends Component {
                 onChange={this.onChangeTitle}
                 type="text"
                 name="title"
+                value={this.state.title}
                 className="form-control"
                 placeholder="Enter Title"
                 value={this.state.title}
@@ -93,15 +117,11 @@ class Create extends Component {
                 onChange={this.onChangeCategory}
                 className="form-select"
                 aria-label="Default select example"
-                value={this.state.category}
+                value={this.state.categories}
               >
-                <option defaultValue>choose</option>;
+                <option selected>choose</option>;
                 {this.state.categories.map((el, index) => {
-                  return (
-                    <option key={el} value={el}>
-                      {el}
-                    </option>
-                  );
+                  return <option value={el}>{el}</option>;
                 })}
               </select>
             </div>

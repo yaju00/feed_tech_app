@@ -65,13 +65,13 @@ class Settings extends Component {
     return (
       <div>
         <Navbar />
-        <div id={styles["mainDiv"]} className="container mt-5 pt-5">
+        <div id={styles["mainDiv"]} className="container mt-5 pt-5 mb-5 pb-5">
           <div>
             <h2 className="text-center">Edit Your Info</h2>
           </div>
           <form onSubmit={this.onSubmit} className={styles.mainForm}>
             <div className="form-group">
-              <label>Email address</label>
+              <label>Existing Email address</label>
               <input
                 onChange={this.ChangeEmail}
                 name="email"
@@ -129,7 +129,11 @@ class Settings extends Component {
                 value={this.state.preference}
               >
                 {this.state.selectOptions.map((el, index) => {
-                  return <option value={el}>{el}</option>;
+                  return (
+                    <option key={el} value={el}>
+                      {el}
+                    </option>
+                  );
                 })}
               </select>
             </div>

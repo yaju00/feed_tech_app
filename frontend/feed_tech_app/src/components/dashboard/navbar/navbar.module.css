@@ -6,7 +6,7 @@
 .sideBar {
   padding-top: 20px;
   background-color: rgb(156, 180, 20);
-  width: 10rem;
+  width: 11rem;
   height: 100vh;
   z-index: 100;
   position: fixed;
@@ -15,7 +15,7 @@
   margin-left: 1rem;
 }
 .sideBar li {
-  margin-top: 50px;
+  margin-top: 40px;
 }
 .sideBar p {
   color: white;
